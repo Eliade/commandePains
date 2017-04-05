@@ -22,9 +22,19 @@ class CommandesController extends Controller
      */
     public function index()
     {
-        $commandes = Commande::all()->where('archive','<>',1);
+        //$commandes = Commande::all()->where('archive','<>',1);
+        $commandes = Commande::paginate(15);
+
         return view('index',array('commandes' => $commandes));
     }
+
+    public function indexDepot($depot)
+    {
+        $commandes = Commande::all()->where('depot_id','=',$depot);
+        $depot = Depot::find($depot);
+        return view('index',array('commandes' => $commandes,'depot' => $depot));
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -72,7 +82,7 @@ class CommandesController extends Controller
         $commande->setAttribute('archive',1);
         $commande->save();
 
-        return redirect()->action('commandesController@show',[$id]);
+        return redirect()->action('CommandesController@show',[$id]);
 
     }
 
@@ -81,9 +91,10 @@ class CommandesController extends Controller
         $commande->setAttribute('archive',null);
         $commande->save();
 
-        return redirect()->action('commandesController@show',[$id]);
+        return redirect()->action('CommandesController@show',[$id]);
 
     }
+
 
     /**
      * Display the specified resource.
