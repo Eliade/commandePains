@@ -1,0 +1,35 @@
+<html>
+<head>
+    <style>
+        .form-section{
+            margin-right: 0;
+            margin-left: 0;
+            background-color: #fff;
+            border-color: #ddd;
+            border-width: 1px;
+            border-radius: 4px 4px 0 0;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            position: relative;
+            padding:0px 15px 15px;
+            margin: 0 -15px 15px;
+            border-color: #e5e5e5 #eee #eee;
+            border-style: solid;
+            border-width: 1px 0;
+            -webkit-box-shadow: inset 0 3px 6px rgba(0,0,0,.05);
+            box-shadow: inset 0 3px 6px rgba(0,0,0,.05);
+            margin-right: 0;
+            margin-left: 0;
+            background-color: #fff;
+            border-color: #ddd;
+            border-width: 1px;
+            border-radius: 4px 4px 0 0;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            position: relative;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
