@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Commande;
 use App\Depot;
+use App\Produit;
 use Illuminate\Http\Request;
+use Mockery\Exception;
 
-class DepotController extends Controller
+class DepotsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +17,8 @@ class DepotController extends Controller
      */
     public function index()
     {
-        //
+        $depots = Depot::all();
+        return view('depot.index',['depots'=>$depots]);
     }
 
     /**
@@ -24,7 +28,7 @@ class DepotController extends Controller
      */
     public function create()
     {
-        //
+        return view('depot.create');
     }
 
     /**
@@ -35,7 +39,12 @@ class DepotController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $nomDepot = $request->get('nomDepot');
+        $depot = new Depot();
+        $depot->setAttribute('nom',$nomDepot);
+        $depot->save();
+
+        return redirect()->action('DepotsController@index');
     }
 
     /**
@@ -80,6 +89,22 @@ class DepotController extends Controller
      */
     public function destroy(Depot $depot)
     {
-        //
+
+        // Recherche des commandes liées au dépot
+        $commandes = Commande::where("depot_id", $depot->id)->get();
+
+        // Détache les produits liés aux commandes trouvées, et supprime la commande
+        foreach ($commandes as $commande){
+            $commande->produits()->detach();
+            $commande->save();
+            $commande->delete();
+        }
+
+        // Supprime le dépot en BDD
+        $depot->delete();
+
+
+
+
     }
 }

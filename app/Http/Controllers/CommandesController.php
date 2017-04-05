@@ -67,6 +67,24 @@ class CommandesController extends Controller
 
     }
 
+    public function archive($id){
+        $commande = Commande::find($id);
+        $commande->setAttribute('archive',1);
+        $commande->save();
+
+        return redirect()->action('commandesController@show',[$id]);
+
+    }
+
+    public function unArchive($id){
+        $commande = Commande::find($id);
+        $commande->setAttribute('archive',null);
+        $commande->save();
+
+        return redirect()->action('commandesController@show',[$id]);
+
+    }
+
     /**
      * Display the specified resource.
      *
@@ -115,6 +133,6 @@ class CommandesController extends Controller
 
     public function ajaxDestroy($request)
     {
-
+        //
     }
 }
